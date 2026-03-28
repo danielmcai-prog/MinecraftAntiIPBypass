@@ -1,0 +1,23 @@
+name: AntiIPBypass
+version: ${project.version}
+main: com.danielmcai.antiipbypass.AntiIPBypass
+api-version: "1.21"
+description: Anti-VPN and IP logger plugin with Discord webhook support
+authors:
+  - danielmcai
+
+commands:
+  antiip:
+    description: AntiIPBypass admin commands
+    usage: /<command> [reload|lookup <player>|checkip <ip>]
+    permission: antiipbypass.admin
+    aliases:
+      - aip
+
+permissions:
+  antiipbypass.admin:
+    description: Allows use of AntiIPBypass admin commands
+    default: op
+  antiipbypass.bypass:
+    description: Bypasses VPN checks for this player
+    default: false
