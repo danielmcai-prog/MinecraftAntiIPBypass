@@ -1,0 +1,53 @@
+# AntiIPBypass Configuration
+
+# Discord webhook settings
+discord:
+  # Set to true to enable Discord webhook notifications
+  enabled: false
+  # Your Discord webhook URL
+  webhook-url: "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
+  # Webhook display name
+  username: "AntiIPBypass"
+  # Webhook avatar URL (optional, leave empty to use default)
+  avatar-url: ""
+  # Events to send to Discord
+  notify:
+    # Notify when a player logs in with a new IP address
+    new-ip: true
+    # Notify when a suspected VPN is detected
+    vpn-detected: true
+    # Notify when duplicate IPs are found (multiple accounts on same IP)
+    duplicate-ip: true
+    # Notify when an account switches IP addresses
+    ip-switch: true
+
+# VPN detection settings
+vpn-detection:
+  # Enable VPN/proxy detection
+  enabled: true
+  # Action to take when a VPN is detected: KICK, WARN, LOG
+  action: LOG
+  # Message shown to player when kicked for VPN (supports color codes with &)
+  kick-message: "&cYou are not allowed to connect using a VPN or proxy."
+  # Check interval in milliseconds for async VPN lookup
+  check-timeout: 5000
+  # Players (by username or UUID) who bypass VPN checks.
+  # Note: permission-based bypass (antiipbypass.bypass) is enforced on join
+  # rather than at AsyncPlayerPreLoginEvent time.
+  bypass-players: []
+
+# IP tracking settings
+tracking:
+  # Warn admins in-game when duplicate IPs are found
+  warn-admins-duplicate: true
+  # Warn admins in-game when a player switches IPs
+  warn-admins-ip-switch: true
+  # Maximum number of IPs to store per player
+  max-ips-per-player: 10
+
+# Logging settings
+logging:
+  # Log to console
+  console: true
+  # Log to file (logs/antiipbypass.log)
+  file: true
