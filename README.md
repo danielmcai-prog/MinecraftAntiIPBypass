@@ -1,6 +1,6 @@
 # MinecraftAntiIPBypass
 
-Anti-VPN and IP logger plugin for **Paper 1.21.1** (Java 21).
+Anti-VPN and IP logger plugin for **Paper 1.21.4** (Java 21).
 
 ## Features
 
@@ -16,7 +16,7 @@ Anti-VPN and IP logger plugin for **Paper 1.21.1** (Java 21).
 
 1. Drop `AntiIPBypass-1.0.0.jar` into your server's `plugins/` folder.
 2. Restart the server — `plugins/AntiIPBypass/config.yml` is generated automatically.
-3. (Optional) Configure your Discord webhook URL in `config.yml` and set `discord.enabled: true`.
+3. Open `plugins/AntiIPBypass/config.yml`, paste your Discord webhook URL into `discord.webhook-url`, set `discord.enabled: true`, then run `/antiip reload`.
 
 ## Building from source
 
@@ -31,8 +31,10 @@ mvn clean package
 
 ```yaml
 discord:
+  # Set to true once you have pasted your webhook URL below
   enabled: false
-  webhook-url: "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
+  # Paste your Discord webhook URL here
+  webhook-url: ""
   username: "AntiIPBypass"
   notify:
     new-ip: true
