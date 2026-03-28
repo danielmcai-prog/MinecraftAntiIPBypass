@@ -2,10 +2,11 @@
 
 # Discord webhook settings
 discord:
-  # Set to true to enable Discord webhook notifications
+  # Set to true to enable Discord webhook notifications.
+  # Paste your webhook URL below, then set enabled: true.
   enabled: false
-  # Your Discord webhook URL
-  webhook-url: "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
+  # Your Discord webhook URL — paste it here and set enabled: true above
+  webhook-url: ""
   # Webhook display name
   username: "AntiIPBypass"
   # Webhook avatar URL (optional, leave empty to use default)

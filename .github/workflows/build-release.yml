@@ -1,0 +1,69 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build with Maven
+        run: mvn clean package --no-transfer-progress
+
+      - name: Get version from pom.xml
+        id: get_version
+        run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.get_version.outputs.VERSION }}
+          name: AntiIPBypass v${{ steps.get_version.outputs.VERSION }}
+          body: |
+            ## AntiIPBypass v${{ steps.get_version.outputs.VERSION }}
+
+            Anti-VPN and IP logger plugin for **Paper 1.21.4** (Java 21).
+
+            ### Installation
+            1. Drop `AntiIPBypass-${{ steps.get_version.outputs.VERSION }}.jar` into your server's `plugins/` folder.
+            2. Restart the server — `plugins/AntiIPBypass/config.yml` is generated automatically.
+            3. Open `plugins/AntiIPBypass/config.yml`, paste your Discord webhook URL into `discord.webhook-url`, set `discord.enabled: true`, then run `/antiip reload`.
+
+            ### Features
+            - VPN / Proxy detection via [ip-api.com](http://ip-api.com)
+            - IP logging per player in `ip_data.yml`
+            - Duplicate IP and IP-switch detection
+            - Discord webhook notifications
+            - Admin commands: `/antiip lookup <player>`, `/antiip checkip <ip>`, `/antiip reload`
+
+            ### Discord Webhook Setup
+            In `plugins/AntiIPBypass/config.yml`:
+            ```yaml
+            discord:
+              enabled: true
+              webhook-url: ""   # paste your webhook URL here
+            ```
+
+            ### Requirements
+            - Paper 1.21.4
+            - Java 21
+          files: target/AntiIPBypass-${{ steps.get_version.outputs.VERSION }}.jar
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
